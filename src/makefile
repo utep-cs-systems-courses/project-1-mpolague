@@ -1,7 +1,7 @@
 all: tokenize
-
-tokenize: tokenize.c history.c mainUI.c
+tokenize: tokenize.c mainUI.c
 	gcc $^ -o $@
-
 clean:
 	rm -f *.o *.c~ tokenize
+run:
+	gcc mainUI.c -o mainUI

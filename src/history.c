@@ -3,45 +3,55 @@
 #include "tokenize.h"
 #include "history.h"
 
+//initializing the linked list. This will keep track of the history
 List *init_history(){
-  LIst *list = (List *)malloc(sizeof(List));
-  list->root = NULL;
+  List *hist = (List *)malloc(sizeof(List));
+  hist->root = NULL;
 }
 
+
+//saves length of string
 int str_length(char *str){
   int count;
-  while(*str != '\0'){
+  
+  while(*str != '\0'){ //iterates through the list
     count++;
   }
+  
   return count;
 }
 
-void add_history(List *list, char *str){
-  Item *new_item = (Item *)malloc(sizeof(Item));
+//adds a string to the end of the list
+void add_history(List *hist, char *str){
+  
+  //creates pointer to a new item
+  Item *new = (Item *)malloc(sizeof(Item));
 
-  new_item->str = copy_str(str, str_length(str));
-  new_item->next = NULL;
+  new->str = copy_str(str, str_length(str));
+  new->next = NULL;
 
-  if(list->root == NULL){
-    list->root == new_item;
-    new_item->id = 1;
+  if(hist->root == NULL){ //checks if it is empty
+    hist->root == new_item; //new string is set to head and tail
+    new->id = 1;
   }
 
   else{
     int prev_id = list-> root->id;
-    list->root->next = new_item;
-    list->root = new_item;
-    new_item->id = prev_id+1;
+    hist->root->next = new_item; //next one is inserted
+    hist->root = new_item; 
+    new_item->id = prev_id+1; //set id
   }
 }
 
-char *get_history(List *list, int id){
-  if(list->root->id < id){
-    printf("Error: INdex out of bounds, Index must be less than %d\n", list->root->id);
+
+//gets the string stored in the node where item->id == id
+char *get_history(List *hist, int id){
+  if(list->root->id < id){ //id must be within the list bounds
+    printf("Error: Index out of bounds, Index must be less than %d\n", list->root->id);
     return NULL;
   }
 
-  Item *current = list->root;
+  Item *current = hist->root;
 
   while(current->id != id){
     current = current->next;
@@ -50,8 +60,8 @@ char *get_history(List *list, int id){
   return current->str;
 }
 
-void print_history(List *list){
-  Item *current = list->root;
+void print_history(List *hist){
+  Item *current = hist->root;
 
   while(current != NULL){
     printf(" %s ", current->str);
@@ -60,14 +70,14 @@ void print_history(List *list){
   printf("\n");
 }
 
-void free_history(List *list){
-  Item *current = list->root;
-  Item *next;
+void free_history(List *hist){
+  Item *current = hist->root;
+  Item *next; //will keep track of next
 
   while(current != NULL){
-    next = current->next;
-    free(current->str);
+    next = current->next; //moves to next one
+    free(current->str); 
     free(current);
-    current=next;
+    current=next; //current is set to something new
   }
 }

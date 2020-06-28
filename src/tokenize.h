@@ -1,19 +1,21 @@
 #ifndef _TOKENIZE_
 #define _TOKENIZE_
 
-int space_char(char c);
+int space_char(char *charac);
 
-int non_space_char(char c);
+int non_space_char(char *charac);
 
-char word_start(char *str);
+char *word_start(char *str);
 
-char *word_terminator(char *word);
+char *word_end(char *str);
 
 int count_words(char *str);
 
+int length_of_string(char *str);
+
 char *copy_str(char *inStr, short len);
 
-char **tokenize(char* str);
+char **tokenized(char* str);
 
 void print_tokens(char **tokens);
 

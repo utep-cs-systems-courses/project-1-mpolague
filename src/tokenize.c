@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "mainUI.c"
+#include <string.h>
 #include "tokenize.h"
 
 int space_char(char *charac){
@@ -37,8 +37,10 @@ char *word_start(char *str){
 
   while(*temp == ' '){
     temp++;
-    if(++temp != ' '){
-      return temp++;
+    char *checking = temp;
+    checking++;
+    if(*checking != ' '){
+      return checking++;
     }
   }
   return temp;
@@ -57,6 +59,7 @@ char *word_end(char *str){
       exit(0); //may not need this
     }
   }
+  return str;
 }
 //-----------------------------
 int count_words(char *str){
@@ -75,12 +78,12 @@ int count_words(char *str){
   exit(0);
 }
 //-----------------------------
-int length_of_string(char *inStr, short len){
-  int len = -1;
-  while(*str++){
-    len++;
+int length_of_string(char *str){
+  int length = -1;
+  while(str++){
+    length++;
   }
-  return len;
+  return length;
   exit(0);
 }
 //-----------------------------
@@ -111,13 +114,14 @@ char *copy_str(char *inStr, short len){
 			     
 }
 //-----------------------------
-char** tokenize(char *str){
+char** tokenized(char *str){
   int countwords = count_words(str);
   char **arraywords = (char **)malloc(sizeof(char*) * (++countwords));
 
   //filling array with words
   int dif = 0;
-  for(int i = 0; i< countwords-1; i++){
+  int i;
+  for(i = 0; i< countwords-1; i++){
     str = word_start(str);
     //find difference in length of string
     if(i != 0){
@@ -136,10 +140,19 @@ char** tokenize(char *str){
 }
 //-----------------------------
 void print_tokens(char **tokens){
-  for(int i = 0; tokenz[i] != '\0'; i++){ //checks if there are characters when doing a for loop
+  for(int i = 0; *tokens[i] != '\0'; i++){ //checks if there are characters when doing a for loop
     for(int j = 0; tokens[i][j] != '\0'; j++){ //checks if there are characters when doing a for loop
       printf("%c", tokens[i][j]); //prints tokens
     }
     printf("\n");
   }
+  return;
+}
+
+void free_tokens(char **tokens){
+  int i = 0;
+  for(i = 0; tokens[i] != NULL; i++){
+    free(tokens[i]);
+  }
+  free(tokens);
 }
