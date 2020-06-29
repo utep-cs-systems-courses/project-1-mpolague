@@ -5,6 +5,7 @@
 //#include "tokenize.c"
 
 int main(){
+  printf("Please enter a string: \n");
   char name[20];
   fgets(name, 20, stdin);
 
@@ -28,10 +29,10 @@ int main(){
   printf("The number of words counted were: %d\n", counted);
   printf("\n");
 
-  printf("--------Calling copy_string--------\n");
+  /*printf("--------Calling copy_string--------\n");
   int length = length_of_string(str);
   char *copied = copy_str(str, length);
-  printf("\n");
+  printf("\n");*/
 
   printf("--------Calling tokenize------------\n");
   char **token = tokenized(str);
