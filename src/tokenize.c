@@ -30,16 +30,22 @@ int non_space_char(char *charac){
 }
 //-----------------------------
 char *word_start(char *str){
-  char *temp = str;
+  char *temp = str; //saving the string in a temporary value
   if(*temp == '\0'){
     return 0;
   }
 
-  while(*temp == ' '){
-    temp++;
+  while(*temp == ' '){ //*temp == ' '
+    temp++; //will go to the next character in the string
+    
+    if(space_char(temp) == 0){
+      return temp;
+    }
+    
     char *checking = temp;
-    checking++;
-    if(*checking != ' '){
+    
+    checking++; //will go to the next character in the string
+    if(space_char(checking) == 0){ //*checking != ' ' -- checking if it is a non-space
       return checking++;
     }
   }
@@ -64,12 +70,12 @@ char *word_end(char *str){
 //-----------------------------
 int count_words(char *str){
   int counter = 1;
-  char *temp = word_start(str);
+  char *temp = word_start(str); //gets the first character encountered
 
   while(*str++){ //iterates through the word
-    if(*str == ' '){
-      str++;
-      if(*str != ' '){
+    if(*str == ' '){ //checks if it is a space
+      str++; 
+      if(*str != ' '){ //checks if it is not a space
 	counter++;
       }
     }
@@ -80,8 +86,8 @@ int count_words(char *str){
 //-----------------------------
 int length_of_string(char *str){
   int length = -1;
-  while(str++){
-    length++;
+  while(str++){ //iterates through the string
+    length++; //adds to counter
   }
   return length;
   exit(0);
@@ -116,16 +122,16 @@ char *copy_str(char *inStr, short len){
 //-----------------------------
 char** tokenized(char *str){
   int countwords = count_words(str);
-  char **arraywords = (char **)malloc(sizeof(char*) * (++countwords));
+  char **arraywords = (char **)malloc(sizeof(char*) * (++countwords)); //creating space
 
   //filling array with words
   int dif = 0;
   int i;
   for(i = 0; i< countwords-1; i++){
-    str = word_start(str);
+    str = word_start(str); //saves the first character encountered
     //find difference in length of string
     if(i != 0){
-      if(*str++ == ' '){
+      if(*str++ == ' '){ //I did not use helpers because it was easier for me to understand 
 	str++;
 	str++;
       }
@@ -150,8 +156,7 @@ void print_tokens(char **tokens){
 }
 
 void free_tokens(char **tokens){
-  int i = 0;
-  for(i = 0; tokens[i] != NULL; i++){
+  for(int i = 0; tokens[i] != NULL; i++){ //iterates and checks if NULL, if not, it frees tokens
     free(tokens[i]);
   }
   free(tokens);
