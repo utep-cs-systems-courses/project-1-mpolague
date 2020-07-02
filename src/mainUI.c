@@ -1,45 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "history.h"
+#include "history.h"
 #include "tokenize.h"
 //#include "tokenize.c"
 
 int main(){
-  printf("Please enter a string: \n");
-  char name[20];
-  fgets(name, 20, stdin);
-
-  //initializing the linked list to store the history
-  //List *history = init_history();
-
-  printf("--------Calling *word_start--------\n");
-  char *str=&name[0]; //points at first character
-  char *starting = word_start(str);
-  printf("letter: %c\n", *starting);
-  printf("value: %d\n", *starting);
-
-  printf("--------Calling *word_end--------\n");
-  char *ending = word_end(str);
-  printf("letter: %c \n", *ending);
-  printf("letter: %d \n", *ending);
-  printf("\n");
-
-  printf("-------Calling count_words-------\n");
-  int counted = count_words(str);
-  printf("The number of words counted were: %d\n", counted);
-  printf("\n");
-
-  /*printf("--------Calling copy_string--------\n");
-  int length = length_of_string(str);
-  char *copied = copy_str(str, length);
-  printf("\n");*/
-
-  printf("--------Calling tokenize------------\n");
-  char **token = tokenized(str);
-  printf("\n");
+  List *history = init_history(); //initializing the linked list to store the history
+  char word[20];
+  int verifyingWhileLoop = 0;
+  printf("Please enter a string or enter 'q' to quit the program\n");
   
-  printf("--------Calling print tokens--------\n");
-  printf("The tokenized string is: \n");
-  print_tokens(token);
-  free_tokens(token);
+  fgets(word, 20, stdin);
+  int checkIfTrue = 0;
+  
+  while(checkIfTrue == 0){
+   if(*word != 'q' && *word != '!'){
+    printf("--------Calling tokenize------------\n");
+    char **token = tokenized(word);
+    printf("\n");
+  
+    printf("--------Calling print tokens--------\n");
+    printf("The tokenized string is: \n");
+    print_tokens(token);
+ 
+    free_tokens(token); //will free tokens
+
+    add_history(history,word); //will add it to the history
+   }
+   else if(*word == '!'){
+     int enteredIndex = (int)(word[1] - '0');
+     
+     char *prev_str = get_history(history, enteredIndex);
+     if(prev_str != NULL){ //will not go here if there is nothing in history
+       printf("Item is:   ");
+       printf(prev_str);
+       printf("\n");
+     }
+   }
+   else{
+     printf("Program exited successfully.\n");
+     checkIfTrue = 1; //will exit the while loop
+   } 
+  }
+  printf("Input history: \n");
+  print_history(history);
+
+  //free linked list
+  free_history(history);
+  printf("Successfully cleared\n");
+  return 0;
 }

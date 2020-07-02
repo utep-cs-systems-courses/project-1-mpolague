@@ -3,10 +3,10 @@
 #include "tokenize.h"
 #include "history.h"
 
-//initializing the linked list. This will keep track of the history
-List *init_history(){
+List *init_history(){ //initializing the linked list. This will keep track of the history of words
   List *hist = (List *)malloc(sizeof(List));
-  hist->root = NULL;
+  
+  hist->root = NULL; //sets root to NULL
 }
 
 
@@ -25,18 +25,18 @@ int str_length(char *str){
 void add_history(List *hist, char *str){
   
   //creates pointer to a new item
-  Item *new = (Item *)malloc(sizeof(Item));
+  Item *new_item = (Item *)malloc(sizeof(Item));
 
-  new->str = copy_str(str, str_length(str));
-  new->next = NULL;
+  new_item->str = copy_str(str, str_length(str));
+  new_item->next = NULL;
 
   if(hist->root == NULL){ //checks if it is empty
     hist->root == new_item; //new string is set to head and tail
-    new->id = 1;
+    new_item->id = 1;
   }
 
   else{
-    int prev_id = list-> root->id;
+    int prev_id = hist-> root->id;
     hist->root->next = new_item; //next one is inserted
     hist->root = new_item; 
     new_item->id = prev_id+1; //set id
@@ -46,8 +46,8 @@ void add_history(List *hist, char *str){
 
 //gets the string stored in the node where item->id == id
 char *get_history(List *hist, int id){
-  if(list->root->id < id){ //id must be within the list bounds
-    printf("Error: Index out of bounds, Index must be less than %d\n", list->root->id);
+  if(hist->root->id < id){ //id must be within the list bounds
+    printf("Error: Index out of bounds, Index must be less than %d\n", hist->root->id);
     return NULL;
   }
 
@@ -63,7 +63,7 @@ char *get_history(List *hist, int id){
 void print_history(List *hist){
   Item *current = hist->root;
 
-  while(current != NULL){
+  while(current != NULL){ //does this until not NULL
     printf(" %s ", current->str);
     current = current->next;
   }

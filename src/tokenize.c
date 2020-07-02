@@ -146,12 +146,13 @@ char** tokenized(char *str){
 }
 //-----------------------------
 void print_tokens(char **tokens){
-  for(int i = 0; *tokens[i] != '\0'; i++){ //checks if there are characters when doing a for loop
+  for(int i = 0; tokens[i] != '\0'; i++){ //checks if there are characters when doing a for loop
     for(int j = 0; tokens[i][j] != '\0'; j++){ //checks if there are characters when doing a for loop
       printf("%c", tokens[i][j]); //prints tokens
     }
     printf("\n");
   }
+  printf("working");
   return;
 }
 
