@@ -36,7 +36,7 @@ void add_history(List *hist, char *str){
   }
 
   else{
-    int prev_id = hist-> root->id;
+    int prev_id = hist-> root->id; //inserting different order
     hist->root->next = new_item; //next one is inserted
     hist->root = new_item; 
     new_item->id = prev_id+1; //set id
@@ -57,7 +57,7 @@ char *get_history(List *hist, int id){
     current = current->next;
   }
 
-  return current->str;
+  return current->str; //fix this
 }
 
 void print_history(List *hist){

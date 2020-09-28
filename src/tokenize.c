@@ -8,10 +8,10 @@ int space_char(char *charac){
   char key = ' ';
 
   while(*check != '\n'){
-    if(*check == key){
+    if(*check == key){ //checks if its a space
       return 1; //returns 1 if there was a space encountered
     }
-    check++;
+    check++; //moves pointer
   }
   return 0; //returns 0 if there was no space encountered
 }
@@ -21,10 +21,10 @@ int non_space_char(char *charac){
   char key = ' ';
 
   while(*check++){
-    if(*check == key){
+    if(*check == key){ //checks if there was a space
       return 0; //returns 0 if there was a space encountered
     }
-    check++;
+    check++; //moves pointer
   }
   return 1; //returns 1 if there was no space encountered
 }
@@ -35,18 +35,18 @@ char *word_start(char *str){
     return 0;
   }
 
-  while(*temp == ' '){ //*temp == ' '
+  while(*temp == ' '){ //*checks if it is a space so it can iterate through the rest of the string
     temp++; //will go to the next character in the string
     
     if(space_char(temp) == 0){
-      return temp;
+      return temp; //if no space encountered it returns the character found
     }
     
     char *checking = temp;
     
     checking++; //will go to the next character in the string
     if(space_char(checking) == 0){ //*checking != ' ' -- checking if it is a non-space
-      return checking++;
+      return checking++; //will return the next character of a new word encountered
     }
   }
   return temp;
@@ -57,9 +57,9 @@ char *word_end(char *str){
     return 0;
   }
   
-  while(*str++){
-    char *temp = str;
-    ++temp;
+  while(*str++){ //will iterate through the string
+    char *temp = str; 
+    ++temp; //will check the character that is after str
     if(*temp == ' ' || *temp == '\n'){ //checks if string is empty 
       return str;
       exit(0); //may not need this
@@ -76,7 +76,7 @@ int count_words(char *str){
     if(*str == ' '){ //checks if it is a space
       str++; 
       if(*str != ' '){ //checks if it is not a space
-	counter++;
+	counter++; //if not a space, it counts a new word
       }
     }
   }
@@ -103,9 +103,9 @@ char *copy_str(char *inStr, short len){
     printf("Memory reallocation successful.\n");
 
     for(int i = 0; i < len+1; i++){
-      ptr[i] = inStr[i];
+      ptr[i] = inStr[i]; //copying the passed string into ptr
     }
-    printf("String copied: ");
+    printf("String copied: "); //just making sure that the word passed was copied successfully
     for(int i = 0; i < len+1; i++){
       printf("%c", ptr[i]);
     }
@@ -122,7 +122,7 @@ char *copy_str(char *inStr, short len){
 //-----------------------------
 char** tokenized(char *str){
   int countwords = count_words(str);
-  char **arraywords = (char **)malloc(sizeof(char*) * (++countwords)); //creating space
+  char **doubleArr = (char **)malloc(sizeof(char*) * (++countwords)); //creating space
 
   //filling array with words
   int dif = 0;
@@ -138,11 +138,11 @@ char** tokenized(char *str){
     }
     dif = word_end(str) - str;
     //adding new allocated string to the array
-    arraywords[i] = copy_str(str,dif);
+    doubleArr[i] = copy_str(str,dif);
     str= word_end(str); //moves pointer to next word
   }
-  arraywords[i] = '\0';
-  return arraywords;  
+  doubleArr[-1] = '\0';
+  return doubleArr;  
 }
 //-----------------------------
 void print_tokens(char **tokens){
@@ -156,9 +156,9 @@ void print_tokens(char **tokens){
   return;
 }
 
-void free_tokens(char **tokens){
-  for(int i = 0; tokens[i] != NULL; i++){ //iterates and checks if NULL, if not, it frees tokens
-    free(tokens[i]);
-  }
-  free(tokens);
-}
+//void free_tokens(char **tokens){
+//  for(int i = 0; tokens[i] != NULL; i++){ //iterates and checks if NULL, if not, it frees tokens
+//    free(tokens[i]);
+//  }
+  //free(tokens[0]);
+//}
