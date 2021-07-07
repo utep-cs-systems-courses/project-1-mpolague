@@ -2,11 +2,9 @@ Project 1: Tokenizer
 ====================
 # Instructions:
 
-You should document your tokenizer in this file.
+Make sure you are under the project /Documents/project-1-mpolague.
+Enter "make all" when using shell and then ./tokenize.
 
-This file is written in the refreshingly simple `markdown` text
-formatting language.
+There should be no errors being displayed.
 
-To learn about text formatting using markdown, we encourage you to examine 
- - [../README.md](../README.md)
- - the online [Markdown Guide](https://www.markdownguide.org/).
+The user interface should be now accessible. You must type a string and hit enter.
